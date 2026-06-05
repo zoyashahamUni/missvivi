@@ -104,8 +104,14 @@ router.post("/", async (req, res) => {
       });
     }
 
-    // 10. Calculate total price with VAT
-    const totalPrice = participants * activity.pricePerParticipant * 1.18;
+
+    console.log("Booking price calculation:", {
+      participants,
+      pricePerParticipant: activity.pricePerParticipant,
+      totalPrice: Number(participants) * Number(activity.pricePerParticipant),
+    });
+    // 10. Calculate total price
+    const totalPrice = Number(participants) * Number(activity.pricePerParticipant);
 
     // 11. Create booking
     const booking = await Booking.create({
