@@ -190,14 +190,8 @@ Rules:
       }
 
       const existingAttraction = await Attraction.findOne({
-        name: item.name,
-        city: item.city || city,
+        $or: [{ sourceUrl: workingSourceUrl }, { name: item.name }],
       });
-
-      if (existingAttraction) {
-        savedAttractions.push(existingAttraction);
-        continue;
-      }
 
       const attraction = await Attraction.create({
         name: item.name,
