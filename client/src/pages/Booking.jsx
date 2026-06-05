@@ -86,6 +86,14 @@ function Booking() {
         }
     }
 
+    function formatBookingNumber(id) {
+        if (!id) {
+            return "";
+        }
+
+        return `MV-${id.slice(-5).toUpperCase()}`;
+    }
+
     return (
         <main className="page booking-page">
             <section className="content-container">
@@ -148,7 +156,7 @@ function Booking() {
                 {confirmedBooking && (
                     <div className="confirmation-card">
                         <h2>ההזמנה אושרה 🎉</h2>
-                        <p>מספר הזמנה: {confirmedBooking._id}</p>
+                        <p>מספר הזמנה: {formatBookingNumber(booking._id)}</p>
                         <p>שם המזמין: {confirmedBooking.customerName}</p>
                         <p>
                             תאריך ביקור:{" "}
