@@ -106,9 +106,23 @@ You are helping build a Hebrew web app called Miss Vivi.
 
 Use Google Search grounding.
 
-Find exactly 3 real child-friendly attractions in or near this city in Israel:
+Find exactly 3 real child-friendly activities, attractions, events, or places in or near this city in Israel:
 City: ${city}
 Child age: ${childAge}
+
+Include a diverse mix when possible:
+- museums
+- zoos
+- parks
+- workshops
+- theater shows
+- children plays
+- cinema activities
+- free events
+- mall activities
+- community center events
+- municipal events
+- family-friendly performances
 
 Important:
 - Do not invent attractions.
@@ -148,7 +162,8 @@ Rules:
 - maxAge must be >= ${childAge}
 - minAge and maxAge must be between 0 and 18.
 - maxParticipants is internal booking data, use a reasonable number between 10 and 30.
-- pricePerParticipant is internal demo data. Use 0 for free activities, or a whole number between 30 and 120 for paid activities. Do not use decimals.- durationMinutes is internal demo data, use a reasonable number between 45 and 120.
+- pricePerParticipant is internal demo data. Use 0 for free activities, or a whole number between 30 and 120 for paid activities. Do not use decimals.
+- durationMinutes is internal demo data, use a reasonable number between 45 and 120.
 `;
 
     const result = await ai.models.generateContent({
@@ -193,6 +208,11 @@ Rules:
         $or: [{ sourceUrl: workingSourceUrl }, { name: item.name }],
       });
 
+      if (existingAttraction) {
+        savedAttractions.push(existingAttraction);
+        continue;
+      }
+
       const attraction = await Attraction.create({
         name: item.name,
         city: item.city || city,
@@ -209,11 +229,11 @@ Rules:
         attractionId: attraction._id,
         minAge,
         maxAge,
-        maxParticipants: item.activity?.maxParticipants ?? 20,
+        maxParticipants: Math.round(Number(item.activity?.maxParticipants ?? 20)),
         pricePerParticipant: Math.round(
           Number(item.activity?.pricePerParticipant ?? 60)
         ),
-        durationMinutes: item.activity?.durationMinutes ?? 90,
+        durationMinutes: Math.round(Number(item.activity?.durationMinutes ?? 90)),
       });
 
       savedAttractions.push(attraction);
