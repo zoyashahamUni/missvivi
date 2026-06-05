@@ -218,7 +218,7 @@ Rules:
       if (existingAttraction) {
         savedAttractions.push(existingAttraction);
 
-        if (savedAttractions.length >= 5) {
+        if (savedAttractions.length >= 3) {
           break;
         }
 
@@ -249,7 +249,7 @@ Rules:
       });
 
       savedAttractions.push(attraction);
-      if (savedAttractions.length >= 5) {
+      if (savedAttractions.length >= 3) {
         break;
       }
     }
