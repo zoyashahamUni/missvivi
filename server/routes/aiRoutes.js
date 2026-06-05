@@ -106,7 +106,27 @@ You are helping build a Hebrew web app called Miss Vivi.
 
 Use Google Search grounding.
 
-Find 8 real child-friendly activities, attractions, events, or places in or near this city in Israel:
+Find 8 real child-friendly options for things to do in or near this city in Israel.
+The child age is ${childAge}, so the results must be specifically suitable for this age.
+
+The results can include:
+- attractions
+- playgrounds
+- parks
+- indoor play areas
+- museums
+- libraries with children activities
+- community center activities
+- municipal events
+- mall activities
+- theater shows
+- children plays
+- cinema activities
+- free events
+- family-friendly performances
+- seasonal events
+- workshops
+
 City: ${city}
 Child age: ${childAge}
 
@@ -126,8 +146,8 @@ Include a diverse mix when possible:
 
 Important:
 - Do not invent attractions.
-- Return only real places that exist.
-- Each attraction must have a real website or source URL.
+- Prefer practical recommendations that a parent can actually use today or this week.
+- Do not limit yourself only to formal attractions. Include everyday family options if they are age-appropriate and have a source URL.- Each attraction must have a real website or source URL.
 - Prefer official websites, municipal pages, or well-known attraction pages.
 - If a URL with www does not work, prefer the version without www.
 - If you cannot verify a place with a source URL, do not include it.
@@ -139,10 +159,8 @@ Important:
 Return this exact JSON structure:
 [
   {
-    "name": "real attraction name in Hebrew",
-    "city": "city in Hebrew",
-    "type": "category in Hebrew",
-    "description": "short Hebrew description based on the source",
+    "name": "real place, event, or activity name in Hebrew",    "city": "city in Hebrew",
+    "type": "category in Hebrew such as park, playground, museum, show, mall activity, free event, workshop",    "description": "short Hebrew description based on the source",
     "sourceUrl": "https://real-source-url.com",
     "minAge": number,
     "maxAge": number,
