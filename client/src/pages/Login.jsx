@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const afterLoginReturnTo = location.state?.afterLoginReturnTo || "/attractions";
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const [loginData, setLoginData] = useState({
@@ -43,7 +45,7 @@ function Login() {
       localStorage.setItem("fullName", data.fullName);
 
       alert("ההתחברות הצליחה!");
-      navigate("/attractions");
+      navigate(afterLoginReturnTo);
     } catch (error) {
       console.log("Login request failed:", error.message);
       alert("אירעה שגיאה בהתחברות");
@@ -56,11 +58,11 @@ function Login() {
         <div className="page-header">
           <p className="eyebrow">Miss Vivi</p>
           <h1>התחברות</h1>
-          <p>התחברי כדי להמשיך לחפש אטרקציות ולבצע הזמנות.</p>
+          <p>התחבר כדי להמשיך לחפש אטרקציות ולבצע הזמנות.</p>
         </div>
 
         <form className="form-card" onSubmit={handleSubmit}>
-          <h2>משתמשת קיימת</h2>
+          <h2>משתמש קיים</h2>
 
           <label>
             שם משתמש
@@ -90,7 +92,7 @@ function Login() {
         </form>
 
         <div className="back-link">
-          <Link to="/register">אין לך משתמשת? הרשמה</Link>
+          <Link to="/register">אין לך משתמש? הרשמה</Link>
           <br />
           <Link to="/">חזרה לדף הבית</Link>
         </div>

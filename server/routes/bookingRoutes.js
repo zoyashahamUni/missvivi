@@ -110,6 +110,7 @@ router.post("/", async (req, res) => {
       pricePerParticipant: activity.pricePerParticipant,
       totalPrice: Number(participants) * Number(activity.pricePerParticipant),
     });
+    
     // 10. Calculate total price
     const totalPrice = Number(participants) * Number(activity.pricePerParticipant);
 

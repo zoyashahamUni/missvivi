@@ -4,7 +4,7 @@ function ErrorPage() {
   const location = useLocation();
 
   const message =
-    location.state?.message || "אירעה שגיאה לא צפויה. נסי שוב.";
+    location.state?.message || "אירעה שגיאה לא צפויה. נסו שוב.";
   const returnTo = location.state?.returnTo || "/attractions";
   const returnText = location.state?.returnText || "חזרה לחיפוש אטרקציות";
 
@@ -19,7 +19,13 @@ function ErrorPage() {
           <p>{message}</p>
 
           <div className="hero-actions">
-            <Link className="primary-button" to={returnTo}>
+            <Link
+              className="primary-button"
+              to={returnTo}
+              state={{
+                afterLoginReturnTo: location.state?.afterLoginReturnTo,
+              }}
+            >
               {returnText}
             </Link>
 

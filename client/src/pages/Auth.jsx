@@ -133,7 +133,7 @@ function Auth() {
                                 name="username"
                                 value={registerData.username}
                                 onChange={handleRegisterChange}
-                                placeholder="בחרי שם משתמש"
+                                placeholder="בחרו שם משתמש"
                             />
                         </label>
 

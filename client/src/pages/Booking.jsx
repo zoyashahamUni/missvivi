@@ -14,11 +14,17 @@ function Booking() {
         localStorage.getItem("lastSearchData") || "{}"
     );
 
+    const pendingBookingData = JSON.parse(
+        localStorage.getItem("pendingBookingData") || "{}"
+    );
+
     const [bookingData, setBookingData] = useState({
-        customerName: localStorage.getItem("fullName") || "",
-        visitDate: "",
-        participants: savedSearchData.participants || "",
-        childAge: savedSearchData.age || "",
+        customerName:
+            pendingBookingData.customerName || localStorage.getItem("fullName") || "",
+        visitDate: pendingBookingData.visitDate || "",
+        participants:
+            pendingBookingData.participants || savedSearchData.participants || "",
+        childAge: pendingBookingData.childAge || savedSearchData.age || "",
     });
 
     const [confirmedBooking, setConfirmedBooking] = useState(null);
@@ -38,9 +44,21 @@ function Booking() {
         const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
         if (!userId) {
+            localStorage.setItem(
+                "pendingBookingData",
+                JSON.stringify({
+                    ...bookingData,
+                    activityId,
+                    attractionId,
+                })
+            );
+
             navigate("/error", {
                 state: {
                     message: "יש להתחבר לאתר לפני ביצוע הזמנה.",
+                    returnTo: "/login",
+                    returnText: "התחברות",
+                    afterLoginReturnTo: `/booking?activityId=${activityId}&attractionId=${attractionId}`,
                 },
             });
             return;
@@ -77,6 +95,7 @@ function Booking() {
             }
 
             console.log("Booking success:", data);
+            localStorage.removeItem("pendingBookingData");
             setConfirmedBooking(data);
         } catch (error) {
             console.log("Booking failed:", error.message);
@@ -104,7 +123,7 @@ function Booking() {
                 <div className="page-header">
                     <p className="eyebrow">הזמנה</p>
                     <h1>כמעט סיימנו — רק פרטי ההזמנה</h1>
-                    <p>מלאי את הפרטים ונבדוק אם יש מקום פנוי לפעילות.</p>
+                    <p>מלאו את הפרטים ונבדוק אם יש מקום פנוי לפעילות.</p>
                 </div>
 
                 <form className="form-card booking-form" onSubmit={handleSubmit}>

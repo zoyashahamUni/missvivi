@@ -178,6 +178,15 @@ input {
   font-weight: 700;
 }
 
+.back-link a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.back-link a:hover {
+  color: #ea580c;
+}
+
 @media (max-width: 800px) {
   .auth-grid {
     grid-template-columns: 1fr;

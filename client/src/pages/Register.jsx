@@ -56,11 +56,11 @@ function Register() {
         <div className="page-header">
           <p className="eyebrow">Miss Vivi</p>
           <h1>הרשמה</h1>
-          <p>צרי משתמשת חדשה כדי לחפש אטרקציות ולבצע הזמנות.</p>
+          <p>צרו משתמש חדש כדי לחפש אטרקציות ולבצע הזמנות.</p>
         </div>
 
         <form className="form-card" onSubmit={handleSubmit}>
-          <h2>משתמשת חדשה</h2>
+          <h2>משתמש חדש</h2>
 
           <label>
             שם מלא
@@ -80,7 +80,7 @@ function Register() {
               name="username"
               value={registerData.username}
               onChange={handleChange}
-              placeholder="בחרי שם משתמש"
+              placeholder="בחרו שם משתמש"
             />
           </label>
 
@@ -101,7 +101,7 @@ function Register() {
         </form>
 
         <div className="back-link">
-          <Link to="/login">כבר יש לך משתמשת? התחברות</Link>
+          <Link to="/login">כבר יש לך משתמש? התחברות</Link>
           <br />
           <Link to="/">חזרה לדף הבית</Link>
         </div>
