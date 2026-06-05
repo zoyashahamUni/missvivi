@@ -66,7 +66,7 @@ function Attractions() {
             }
 
             const aiResponse = await fetch(
-                "${API_BASE_URL}/api/ai/generate-attractions",
+                `${API_BASE_URL}/api/ai/generate-attractions`,
                 {
                     method: "POST",
                     headers: {

@@ -51,7 +51,7 @@ function Booking() {
         };
 
         try {
-            const response = await fetch("${API_BASE_URL}/api/bookings", {
+            const response = await fetch(`${API_BASE_URL}/api/bookings`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

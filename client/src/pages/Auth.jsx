@@ -37,7 +37,7 @@ function Auth() {
         const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
         try {
-            const response = await fetch("${API_BASE_URL}/api/users/register", {
+            const response = await fetch(`${API_BASE_URL}/api/users/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -71,7 +71,7 @@ function Auth() {
         const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
         try {
-            const response = await fetch("${API_BASE_URL}/api/users/login", {
+            const response = await fetch(`${API_BASE_URL}/api/users/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
