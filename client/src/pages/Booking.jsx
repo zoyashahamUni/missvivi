@@ -156,8 +156,7 @@ function Booking() {
                 {confirmedBooking && (
                     <div className="confirmation-card">
                         <h2>ההזמנה אושרה 🎉</h2>
-                        <p>מספר הזמנה: {formatBookingNumber(booking._id)}</p>
-                        <p>שם המזמין: {confirmedBooking.customerName}</p>
+                        <p>מספר הזמנה: {formatBookingNumber(confirmedBooking._id)}</p>                        <p>שם המזמין: {confirmedBooking.customerName}</p>
                         <p>
                             תאריך ביקור:{" "}
                             {new Date(confirmedBooking.visitDate).toLocaleDateString("he-IL")}
