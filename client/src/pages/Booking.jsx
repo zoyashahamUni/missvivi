@@ -10,11 +10,15 @@ function Booking() {
     const attractionId = searchParams.get("attractionId");
     const today = new Date().toISOString().split("T")[0];
 
+    const savedSearchData = JSON.parse(
+        localStorage.getItem("lastSearchData") || "{}"
+    );
+
     const [bookingData, setBookingData] = useState({
         customerName: localStorage.getItem("fullName") || "",
         visitDate: "",
-        participants: "",
-        childAge: "",
+        participants: savedSearchData.participants || "",
+        childAge: savedSearchData.age || "",
     });
 
     const [confirmedBooking, setConfirmedBooking] = useState(null);
