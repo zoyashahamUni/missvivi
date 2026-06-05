@@ -186,8 +186,12 @@ function Booking() {
                         </p>
                         <p>מספר משתתפים: {confirmedBooking.participants}</p>
                         <p>גיל הילד/ה: {confirmedBooking.childAge}</p>
-                        <p>מחיר סופי: ₪{confirmedBooking.totalPrice}</p>
-                    </div>
+                        <p>
+                            מחיר סופי:{" "}
+                            {confirmedBooking.totalPrice === 0
+                                ? "חינם"
+                                : `₪${confirmedBooking.totalPrice}`}
+                        </p>                    </div>
                 )}
                 <div className="back-link">
                     <Link to="/attractions">חזרה לחיפוש אטרקציות</Link>

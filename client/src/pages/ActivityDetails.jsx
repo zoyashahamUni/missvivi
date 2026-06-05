@@ -55,8 +55,12 @@ function ActivityDetails() {
 
           <p>משך הפעילות: {activity.durationMinutes} דקות</p>
           <p>מספר משתתפים מקסימלי: {activity.maxParticipants}</p>
-          <p>מחיר למשתתף: ₪{activity.pricePerParticipant}</p>
-
+          <p>
+            מחיר למשתתף:{" "}
+            {activity.pricePerParticipant === 0
+              ? "חינם"
+              : `₪${activity.pricePerParticipant}`}
+          </p>
           {activity.attractionId && (
             <p>
               אטרקציה: {activity.attractionId.name} ·{" "}

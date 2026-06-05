@@ -148,8 +148,7 @@ Rules:
 - maxAge must be >= ${childAge}
 - minAge and maxAge must be between 0 and 18.
 - maxParticipants is internal booking data, use a reasonable number between 10 and 30.
-- pricePerParticipant is internal demo data, use a reasonable number between 30 and 120.
-- durationMinutes is internal demo data, use a reasonable number between 45 and 120.
+- pricePerParticipant is internal demo data. Use 0 for free activities, or a whole number between 30 and 120 for paid activities. Do not use decimals.- durationMinutes is internal demo data, use a reasonable number between 45 and 120.
 `;
 
     const result = await ai.models.generateContent({
@@ -217,7 +216,9 @@ Rules:
         minAge,
         maxAge,
         maxParticipants: item.activity?.maxParticipants ?? 20,
-        pricePerParticipant: item.activity?.pricePerParticipant ?? 60,
+        pricePerParticipant: Math.round(
+          Number(item.activity?.pricePerParticipant ?? 60)
+        ),
         durationMinutes: item.activity?.durationMinutes ?? 90,
       });
 
