@@ -25,7 +25,7 @@ function AttractionDetails() {
                 setAttraction(attractionData);
 
                 const activitiesResponse = await fetch(
-                    `h${API_BASE_URL}/api/attractions/${id}/activities`
+                    `${API_BASE_URL}/api/attractions/${id}/activities`
                 );
 
                 const activitiesData = await activitiesResponse.json();
