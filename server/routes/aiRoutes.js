@@ -106,7 +106,7 @@ You are helping build a Hebrew web app called Miss Vivi.
 
 Use Google Search grounding.
 
-Find 8 real child-friendly options for things to do in or near this city in Israel.
+Find 5 real child-friendly options for things to do in or near this city in Israel.
 The child age is ${childAge}, so the results must be specifically suitable for this age.
 
 The results can include:
