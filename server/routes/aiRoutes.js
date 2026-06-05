@@ -130,28 +130,15 @@ The results can include:
 City: ${city}
 Child age: ${childAge}
 
-Include a diverse mix when possible:
-- museums
-- zoos
-- parks
-- workshops
-- theater shows
-- children plays
-- cinema activities
-- free events
-- mall activities
-- community center events
-- municipal events
-- family-friendly performances
-
 Important:
 - Do not invent attractions.
 - Prefer practical recommendations that a parent can actually use today or this week.
-- Do not limit yourself only to formal attractions. Include everyday family options if they are age-appropriate and have a source URL.- Each attraction must have a real website or source URL.
+- The sourceUrl must be a real http or https URL.
+- Do not limit yourself only to formal attractions. Include everyday family options if they are age-appropriate and have a source URL.
+- Each option must have a real website or source URL.
 - Prefer official websites, municipal pages, or well-known attraction pages.
 - If a URL with www does not work, prefer the version without www.
 - If you cannot verify a place with a source URL, do not include it.
-- The sourceUrl must be a real http or https URL.
 - Return ONLY a valid JSON array.
 - Do not include markdown.
 - Do not include explanations.
@@ -159,8 +146,10 @@ Important:
 Return this exact JSON structure:
 [
   {
-    "name": "real place, event, or activity name in Hebrew",    "city": "city in Hebrew",
-    "type": "category in Hebrew such as park, playground, museum, show, mall activity, free event, workshop",    "description": "short Hebrew description based on the source",
+    "name": "real place, event, or activity name in Hebrew",
+    "city": "city in Hebrew",
+    "type": "category in Hebrew such as park, playground, museum, show, mall activity, free event, workshop",
+    "description": "short Hebrew description based on the source",
     "sourceUrl": "https://real-source-url.com",
     "minAge": number,
     "maxAge": number,
@@ -228,9 +217,11 @@ Rules:
 
       if (existingAttraction) {
         savedAttractions.push(existingAttraction);
+
         if (savedAttractions.length >= 5) {
           break;
         }
+
         continue;
       }
 
@@ -258,16 +249,15 @@ Rules:
       });
 
       savedAttractions.push(attraction);
+      if (savedAttractions.length >= 5) {
+        break;
+      }
     }
 
     if (savedAttractions.length === 0) {
       return res.status(404).json({
         error: "Gemini did not return verified attractions with working source URLs",
       });
-    }
-
-    if (savedAttractions.length >= 5) {
-      break;
     }
     res.status(201).json(savedAttractions);
   } catch (error) {
