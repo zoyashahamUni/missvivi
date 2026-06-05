@@ -56,11 +56,13 @@ function Attractions() {
                 return;
             }
 
-            if (searchResults.length > 0) {
-                setAttractions(searchResults);
+            if (searchResults.length >= 5) {
+                const topResults = searchResults.slice(0, 5);
+
+                setAttractions(topResults);
 
                 localStorage.setItem("lastSearchData", JSON.stringify(searchData));
-                localStorage.setItem("lastAttractions", JSON.stringify(searchResults));
+                localStorage.setItem("lastAttractions", JSON.stringify(topResults));
 
                 return;
             }
@@ -86,10 +88,26 @@ function Attractions() {
                 return;
             }
 
-            setAttractions(aiResults);
+            const combinedResults = [...searchResults, ...aiResults];
+
+            const uniqueResults = combinedResults.filter((attraction, index, array) => {
+                return (
+                    index ===
+                    array.findIndex(
+                        (item) =>
+                            item._id === attraction._id ||
+                            item.sourceUrl === attraction.sourceUrl ||
+                            item.name === attraction.name
+                    )
+                );
+            });
+
+            const topResults = uniqueResults.slice(0, 5);
+
+            setAttractions(topResults);
 
             localStorage.setItem("lastSearchData", JSON.stringify(searchData));
-            localStorage.setItem("lastAttractions", JSON.stringify(aiResults));
+            localStorage.setItem("lastAttractions", JSON.stringify(topResults));
         } catch (error) {
             console.log("Search failed:", error.message);
             alert("אירעה שגיאה בחיפוש");

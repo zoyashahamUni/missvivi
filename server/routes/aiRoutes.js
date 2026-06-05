@@ -106,7 +106,7 @@ You are helping build a Hebrew web app called Miss Vivi.
 
 Use Google Search grounding.
 
-Find 6 real child-friendly activities, attractions, events, or places in or near this city in Israel:
+Find 8 real child-friendly activities, attractions, events, or places in or near this city in Israel:
 City: ${city}
 Child age: ${childAge}
 
@@ -210,6 +210,9 @@ Rules:
 
       if (existingAttraction) {
         savedAttractions.push(existingAttraction);
+        if (savedAttractions.length >= 5) {
+          break;
+        }
         continue;
       }
 
@@ -245,6 +248,9 @@ Rules:
       });
     }
 
+    if (savedAttractions.length >= 5) {
+      break;
+    }
     res.status(201).json(savedAttractions);
   } catch (error) {
     console.error("Gemini generation failed:", error.message);
