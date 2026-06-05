@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 
 function AttractionDetails() {
     const { id } = useParams();
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     const [attraction, setAttraction] = useState(null);
     const [activities, setActivities] = useState([]);
@@ -11,7 +12,7 @@ function AttractionDetails() {
         async function fetchAttractionDetails() {
             try {
                 const attractionResponse = await fetch(
-                    `http://localhost:3001/api/attractions/${id}`
+                    `${API_BASE_URL}/api/attractions/${id}`
                 );
 
                 const attractionData = await attractionResponse.json();
@@ -24,7 +25,7 @@ function AttractionDetails() {
                 setAttraction(attractionData);
 
                 const activitiesResponse = await fetch(
-                    `http://localhost:3001/api/attractions/${id}/activities`
+                    `h${API_BASE_URL}/api/attractions/${id}/activities`
                 );
 
                 const activitiesData = await activitiesResponse.json();

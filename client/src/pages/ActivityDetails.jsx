@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 function ActivityDetails() {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const { id } = useParams();
 
   const [activity, setActivity] = useState(null);
@@ -10,7 +11,7 @@ function ActivityDetails() {
     async function fetchActivity() {
       try {
         const response = await fetch(
-          `http://localhost:3001/api/activities/${id}`
+          `${API_BASE_URL}/api/activities/${id}`
         );
 
         const data = await response.json();

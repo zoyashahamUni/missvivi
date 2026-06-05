@@ -40,12 +40,13 @@ function Attractions() {
     async function handleSearch(event) {
         event.preventDefault();
         setIsLoading(true);
+        const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
         try {
             const params = new URLSearchParams(searchData);
 
             const searchResponse = await fetch(
-                `http://localhost:3001/api/search-attractions?${params.toString()}`
+                `${API_BASE_URL}/api/search-attractions?${params.toString()}`
             );
 
             const searchResults = await searchResponse.json();
@@ -65,7 +66,7 @@ function Attractions() {
             }
 
             const aiResponse = await fetch(
-                "http://localhost:3001/api/ai/generate-attractions",
+                "${API_BASE_URL}/api/ai/generate-attractions",
                 {
                     method: "POST",
                     headers: {

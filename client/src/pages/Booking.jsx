@@ -31,6 +31,7 @@ function Booking() {
     async function handleSubmit(event) {
         event.preventDefault();
         const userId = localStorage.getItem("userId");
+        const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
         if (!userId) {
             navigate("/error", {
@@ -50,7 +51,7 @@ function Booking() {
         };
 
         try {
-            const response = await fetch("http://localhost:3001/api/bookings", {
+            const response = await fetch("${API_BASE_URL}/api/bookings", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

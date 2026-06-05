@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const [loginData, setLoginData] = useState({
     username: "",
@@ -20,9 +21,10 @@ function Login() {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     try {
-      const response = await fetch("http://localhost:3001/api/users/login", {
+      const response = await fetch("${API_BASE_URL}/api/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
