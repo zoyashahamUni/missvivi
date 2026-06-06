@@ -133,15 +133,16 @@ Child age: ${childAge}
 Important:
 - Do not invent attractions.
 - Prefer practical recommendations that a parent can actually use today or this week.
-- The sourceUrl must be a real http or https URL.
 - Do not limit yourself only to formal attractions. Include everyday family options if they are age-appropriate and have a source URL.
-- Each option must have a real website or source URL.
 - Prefer official websites, municipal pages, or well-known attraction pages.
 - If a URL with www does not work, prefer the version without www.
-- If you cannot verify a place with a source URL, do not include it.
 - Return ONLY a valid JSON array.
 - Do not include markdown.
 - Do not include explanations.
+- Prefer options with a real website or source URL when available.
+- If an option is useful and real but does not have a direct source URL, you may still include it.
+- If no source URL is available, use an empty string for sourceUrl.
+- Do not invent fake URLs.
 
 Return this exact JSON structure:
 [
@@ -188,12 +189,9 @@ Rules:
     const savedAttractions = [];
 
     for (const item of attractionsFromAI) {
-      const workingSourceUrl = await getWorkingSourceUrl(item.sourceUrl);
-
-      if (!workingSourceUrl) {
-        console.log("Skipping unreachable source URL:", item.sourceUrl);
-        continue;
-      }
+      const workingSourceUrl = item.sourceUrl
+        ? await getWorkingSourceUrl(item.sourceUrl)
+        : "";
 
       const minAge = Number(item.minAge);
       const maxAge = Number(item.maxAge);
@@ -211,8 +209,14 @@ Rules:
         continue;
       }
 
+      const duplicateConditions = [{ name: item.name }];
+
+      if (workingSourceUrl) {
+        duplicateConditions.push({ sourceUrl: workingSourceUrl });
+      }
+
       const existingAttraction = await Attraction.findOne({
-        $or: [{ sourceUrl: workingSourceUrl }, { name: item.name }],
+        $or: duplicateConditions,
       });
 
       if (existingAttraction) {
