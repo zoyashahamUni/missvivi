@@ -189,9 +189,8 @@ Rules:
     const savedAttractions = [];
 
     for (const item of attractionsFromAI) {
-      const workingSourceUrl = item.sourceUrl
-        ? await getWorkingSourceUrl(item.sourceUrl)
-        : "";
+      const workingSourceUrl =
+  item.sourceUrl && isValidUrl(item.sourceUrl) ? item.sourceUrl : "";
 
       const minAge = Number(item.minAge);
       const maxAge = Number(item.maxAge);
@@ -234,7 +233,7 @@ Rules:
         city: item.city || city,
         type: item.type,
         description: item.description,
-        sourceUrl: workingSourceUrl,
+        sourceUrl: workingSourceUrl || "",
         minAge,
         maxAge,
         source: "ai",

@@ -56,15 +56,17 @@ function Attractions() {
                 return;
             }
 
-            if (searchResults.length >= 5) {
-                const topResults = searchResults.slice(0, 5);
+            if (searchResults.length > 0) {
+                const dbResults = searchResults.slice(0, 5);
 
-                setAttractions(topResults);
+                setAttractions(dbResults);
 
                 localStorage.setItem("lastSearchData", JSON.stringify(searchData));
-                localStorage.setItem("lastAttractions", JSON.stringify(topResults));
+                localStorage.setItem("lastAttractions", JSON.stringify(dbResults));
 
-                return;
+                if (dbResults.length >= 5) {
+                    return;
+                }
             }
 
             const aiResponse = await fetch(
@@ -84,6 +86,11 @@ function Attractions() {
             const aiResults = await aiResponse.json();
 
             if (!aiResponse.ok) {
+                if (searchResults.length > 0) {
+                    console.log("AI failed, showing DB results only:", aiResults.error);
+                    return;
+                }
+
                 alert(aiResults.error);
                 return;
             }
