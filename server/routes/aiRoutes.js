@@ -265,13 +265,28 @@ Rules:
     }
     res.status(201).json(savedAttractions);
   } catch (error) {
-    console.error("Gemini generation failed:", error.message);
+  console.error("Gemini generation failed:", error.message);
 
-    res.status(500).json({
-      error: "Gemini failed to generate verified attractions",
-      details: error.message,
+  const errorText = error.message || "";
+
+  if (
+    errorText.includes("429") ||
+    errorText.includes("RESOURCE_EXHAUSTED") ||
+    errorText.includes("Quota exceeded") ||
+    errorText.includes("quota")
+  ) {
+    return res.status(429).json({
+      error:
+        "Miss Vivi הגיעה היום למכסת החיפוש היומית של ה־AI. אפשר לנסות שוב אחרי חצות לפי שעון ארה״ב, או לחפש עיר שכבר קיימת במאגר.",
+      code: "AI_QUOTA_EXCEEDED",
     });
   }
+
+  res.status(500).json({
+    error: "אירעה שגיאה בחיפוש בעזרת AI. נסו שוב מאוחר יותר.",
+    details: error.message,
+  });
+}
 });
 
 export default router;
