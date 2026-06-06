@@ -27,8 +27,7 @@ const attractionSchema = new mongoose.Schema(
 
     sourceUrl: {
       type: String,
-      required: true,
-      trim: true,
+      default: "",
     },
 
     minAge: {
