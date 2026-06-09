@@ -1,5 +1,6 @@
 import express from "express";
 import jwt from "jsonwebtoken";
+import { authMiddleware } from "../middleware/authMiddleware.js";
 import User from "../models/User.js";
 
 const router = express.Router();
@@ -82,4 +83,11 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// Get current logged-in user from token
+router.get("/me", authMiddleware, async (req, res) => {
+  res.json({
+    message: "Token is valid",
+    user: req.user,
+  });
+});
 export default router;
