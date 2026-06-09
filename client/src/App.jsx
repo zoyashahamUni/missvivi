@@ -10,11 +10,13 @@ import ErrorPage from "./pages/ErrorPage";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import HomeButton from "./components/HomeButton";
+import UserStatus from "./components/UserStatus";
 
 function App() {
   return (
     <>
       <HomeButton />
+      <UserStatus />
 
       <Routes>
         <Route path="/" element={<Home />} />
