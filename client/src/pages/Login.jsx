@@ -41,9 +41,9 @@ function Login() {
         return;
       }
 
-      localStorage.setItem("userId", data._id);
-      localStorage.setItem("fullName", data.fullName);
-
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      
       alert("ההתחברות הצליחה!");
       navigate(afterLoginReturnTo);
     } catch (error) {

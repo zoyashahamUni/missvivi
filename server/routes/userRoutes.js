@@ -1,7 +1,16 @@
 import express from "express";
+import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
 const router = express.Router();
+
+const createToken = (user) => {
+  return jwt.sign(
+    { id: user._id, username: user.username },
+    process.env.JWT_SECRET,
+    { expiresIn: "7d" }
+  );
+};
 
 // Register new user
 router.post("/register", async (req, res) => {
@@ -28,10 +37,15 @@ router.post("/register", async (req, res) => {
       fullName,
     });
 
+    const token = createToken(user);
+
     res.status(201).json({
-      _id: user._id,
-      username: user.username,
-      fullName: user.fullName,
+      token,
+      user: {
+        _id: user._id,
+        username: user.username,
+        fullName: user.fullName,
+      },
     });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -53,10 +67,15 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Invalid username or password" });
     }
 
+    const token = createToken(user);
+
     res.json({
-      _id: user._id,
-      username: user.username,
-      fullName: user.fullName,
+      token,
+      user: {
+        _id: user._id,
+        username: user.username,
+        fullName: user.fullName,
+      },
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
